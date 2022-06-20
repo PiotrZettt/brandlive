@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<div style="text-align: center">
+    <h3 class="main-title"> Login </h3>
+    <div>
+        <form class="search-form mx-auto" style="width: 400px;" method="post">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <row>
+                <button type="submit" class="btn btn-light">Login</button>
+                <a href="{% url 'create_profile' %}" style="margin-left: 50px"> Sign up</a>
+            </row>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

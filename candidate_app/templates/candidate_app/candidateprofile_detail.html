@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+    {% if request.user.id == object.id %}
+    {% load static %}
+    {% csrf_token %}
+
+        <div class="card shadow p-6 mb-5" style="max-width: 840px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ object.photo.url }}" class="card-img" alt="static/images/BL_default_img.pdf">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.first_name }} {{ object.last_name }}</h5>
+                    <p class="card-text">Gender: {{ object.gender }}</p>
+                    <p class="card-text">Age: {{ object.age }}</p>
+                    <p class="card-text">Location: {{ object.location }}</p>
+                    <p class="card-text">Note: {{ object.note }}</p>
+                  <p class="card-text">Email: {{ object.email }}</p>
+                  <p class="card-text">Phone number: {{ object.phone_number}}</p>
+                    <a href="{% url 'password_change' %}" class="btn btn-info">Change password</a>
+                    <a href="{% url 'update' pk=object.pk  %}" class="btn btn-info">Update profile</a>
+                    <a href="{% url 'delete' pk=object.pk %}" class="btn btn-info">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <h2>You have no permission to access this site</h2>
+    {% endif %}
+    {% else %}
+
+
+        <div style="text-align: center;">
+            <h4> You are not logged in. Please log in <a href="{% url 'user-login' %}">here</a></h4>
+        </div>
+    {% endif %}
+
+{% endblock %}

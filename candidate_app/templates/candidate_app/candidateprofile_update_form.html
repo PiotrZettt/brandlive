@@ -1,0 +1,30 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+{% load crispy_forms_tags %}
+
+
+  <h3 class="main-title" style="text-align: center">Update</h3>
+
+   <div style="width: 50%; margin-left: 150px" >
+   <form method="post" accept-charset="utf-8" enctype="multipart/form-data">
+     {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Update">
+  </form>
+   </div>
+
+{% else %}
+    <div style="text-align: center;">
+        <h4> You are not logged in. Please log in <a href="{% url 'user-login' %}">here</a></h4>
+    </div>
+
+{% endif %}
+
+
+{% endblock %}
+
+
+
+

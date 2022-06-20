@@ -1,0 +1,71 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+  <h3 class="main-title" style="text-align: center">Search</h3>
+
+          <form class="search-form mx-auto" style="width: 400px;" method="post" action="{% url 'search' %}">
+          {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlselect1">Sex</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="sex">
+                   <option>Female</option>
+                   <option>Male</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="exampleFormControlSelect2">Age</label>
+                <select class="form-control" id="exampleFormControlSelect2" name="age">
+                   <option>16-20</option>
+                   <option>21-30</option>
+                   <option>31-40</option>
+                   <option>40+</option>
+                 </select>
+            </div>
+            <div>
+                <label for="exampleFormControlSelect3">Location</label>
+                <select class="form-control" id="exampleFormControlSelect3" name="location">
+                     {% for location in location_options %}
+                     <option>{{ location }}</option>
+                     {% endfor %}
+                </select>
+            </div>
+              <div class="text-centre" style="margin: 30px;">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+                  </div>
+          </form>
+
+
+  {% if searched_result %}
+  {% for profile in searched_result %}
+
+    <div class="card shadow p-6 mb-5" style="max-width: 840px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="{{ painting.image.url }}" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h5>
+            <p class="card-text">Sex: {{ profile.sex }}</p>
+            <p class="card-text">Age: {{ profile.sex }}</p>
+            <p class="card-text">Email: {{ profile.email }}</p>
+            <p class="card-text">Location: {{ profile.location }}</p>
+            <p class="card-text">O mnie: {{ profile.note }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  {% endif %}
+{% else %}
+    <div style="text-align: center;">
+        <h4> You are not logged in. Please log in <a href="{% url 'user-login' %}">here</a></h4>
+    </div>
+
+{% endif %}
+
+{% endblock %}
+

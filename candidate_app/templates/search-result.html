@@ -1,0 +1,36 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+    <h3 class="main-title" style="text-align: center">Your search results</h3>
+
+        {% if searched_result %}
+            {% for profile in searched_result %}
+
+            <div class="card shadow p-6 mb-5" style="max-width: 840px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{ profile.photo.url }}" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h5>
+                            <p class="card-text">Gender: {{ profile.gender }}</p>
+                            <p class="card-text">Age: {{ profile.age }}</p>
+                            <p class="card-text">Email: {{ profile.email }}</p>
+                            <p class="card-text">Location: {{ profile.location }}</p>
+                            <p class="card-text">Note: {{ profile.note }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class=" text-center" style="margin-bottom: 50px;">
+            <a href="{% url 'search' %}" class="btn btn-light">Search again</a>
+        </div>
+
+{% endblock %}
+
+
