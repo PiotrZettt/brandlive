@@ -1,2 +1,1 @@
-web: gunicorn candidate_app.wsgi
-
+web: gunicorn brandlive.wsgi
