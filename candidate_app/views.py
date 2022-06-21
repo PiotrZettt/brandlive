@@ -28,13 +28,11 @@ def query(request):
         for profile in result_all:
             registered_locations.append(profile.location)
         location_options = set(registered_locations)
-        print(location_options)
 
         if request.method == 'POST':
             gender = request.POST.get('gender', False)
             age = request.POST.get('age', False)
             location = request.POST.get('location', False)
-            print(age, gender, location)
 
             searched_result = CandidateProfile.objects.filter(gender=gender).filter(age=age).filter(location=location)
 
