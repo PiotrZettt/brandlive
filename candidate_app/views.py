@@ -7,10 +7,6 @@ from .forms import CandidateForm
 from django.views.generic.edit import DeleteView, UpdateView
 from .models import CandidateProfile
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
 
 
 def index(request):
@@ -18,7 +14,11 @@ def index(request):
 
     return redirect('profile-detail', pk=[str(id)])
 
+
 def query(request):
+    """
+    Search view. Staff users can query all profiles using set of filters.
+    """
 
     if request.user.is_staff:
 
@@ -29,12 +29,28 @@ def query(request):
             registered_locations.append(profile.location)
         location_options = set(registered_locations)
 
-        if request.method == 'POST':
-            gender = request.POST.get('gender', False)
-            age = request.POST.get('age', False)
-            location = request.POST.get('location', False)
+        def none_value(value):
+            """
+            Turns string 'Any' into value of None to omit those filters the user choose not to apply
+            """
 
-            searched_result = CandidateProfile.objects.filter(gender=gender).filter(age=age).filter(location=location)
+            if value == 'Any':
+                return None
+            return value
+
+        def filter_if_not_none(query_set, **kwarks):
+            """
+            Creates a filter-value dictionary to filter through the fields of the user's choice
+            """
+            return query_set.filter(**{key: value for key, value in kwarks.items() if value is not None })
+
+        if request.method == 'POST':
+            gender = request.POST.get('gender', None)
+            age = request.POST.get('age', None)
+            location = request.POST.get('location', None)
+
+            searched_result = filter_if_not_none(CandidateProfile.objects.all(),
+                                                 gender=none_value(gender), age=none_value(age), location=location)
 
             context = {
                 'result_all': result_all,
@@ -47,6 +63,9 @@ def query(request):
 
 
 def create_profile(request):
+    """
+    Saves an instance of candidate profile using an extended User model
+    """
     if request.method == "POST":
         form = CandidateForm(request.POST, request.FILES)
         if form.is_valid():
@@ -61,12 +80,18 @@ def create_profile(request):
 
 
 class CandidateUpdateView(UpdateView):
+    """
+    Used to update given profile
+    """
     model = CandidateProfile
     fields = ['email', 'phone_number', 'location', 'photo', 'note']
     template_name_suffix = '_update_form'
 
 
 class CandidateDeleteView(DeleteView):
+    """
+    Used to delete given profile
+    """
     model = CandidateProfile
     success_url = reverse_lazy('user-login')
 
@@ -78,6 +103,11 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
 
 
 class MyLoginView(LoginView):
+    """
+    Custom Login.
+    Redirects staff users straight to the search view.
+    """
+
 
     def get_success_url(self):
         if self.request.user.is_staff:
@@ -93,4 +123,7 @@ class CandidateProfileListView(generic.ListView):
 
 
 class CandidateProfileDetailView(generic.DetailView):
+    """
+    Personal profile view accessible to every registered candidate
+    """
     model = CandidateProfile
