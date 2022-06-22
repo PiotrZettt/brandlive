@@ -11,7 +11,6 @@ class CandidateProfile(User):
     gender_choice = (
         ('Female', 'Female'),
         ('Male', 'Male'),
-        (None, None)
     )
 
     age_choice = (
@@ -19,7 +18,6 @@ class CandidateProfile(User):
         ('21-30', '21-30'),
         ('31-40', '31-40'),
         ('40+', '40+'),
-        (None, None)
     )
 
     gender = models.CharField(max_length=20, choices=gender_choice)
