@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'candidate_app',
+    'api',
+    'rest_framework',
     'crispy_forms'
 ]
 
