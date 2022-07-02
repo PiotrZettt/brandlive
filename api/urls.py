@@ -1,9 +1,13 @@
-from django.urls import path
-from .views import candidate_api, candidate_detail
+from django.urls import include, path
+from rest_framework import routers
+from .views import ProfileViewSets
+
+router = routers.DefaultRouter()
+router.register(r'users', ProfileViewSets)
 
 
 urlpatterns = [
-    path('', candidate_api, name='candidate'),
-    path('candidates/<int:pk>', candidate_detail, name='candidate_detail')
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     ]
 
