@@ -2,16 +2,21 @@
 
 {% block content %}
 {% if request.user.is_authenticated %}
-{% load crispy_forms_tags %}
+    {% if request.user.id == object.id %}
+    {% load crispy_forms_tags %}
 
-<h4 style="text-align: center; color: red;">You are about to delete your profile!</h4>
+    <h4 style="text-align: center; color: red;">You are about to delete your profile!</h4>
 
-<form class="search-form mx-auto" style="width: 400px;" method="post">
-{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    {{ form|crispy }}
-    <input type="submit" value="Confirm" style="text-align: right">
-</form>
+    <form class="search-form mx-auto" style="width: 400px;" method="post">
+    {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        {{ form|crispy }}
+        <input type="submit" value="Confirm" style="text-align: right">
+    </form>
+
+    {% else %}
+        <h2 class="deny_access">You have no permission to access this site</h2>
+    {% endif %}
 
 {% else %}
     <div style="text-align: center;">
