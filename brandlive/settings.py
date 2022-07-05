@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'candidate_app.apps.CandidateAppConfig',
-    'api.apps.ApiConfig',
-    'rest_framework',
     'crispy_forms'
 ]
 
@@ -63,7 +61,7 @@ ROOT_URLCONF = 'brandlive.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,14 +128,13 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = 'static_root'
 STATICFILES_DIRS = [
-    BASE_DIR / 'frontend/build/static',
     BASE_DIR / 'candidate_app/static',
 
 ]
 
 STATICFILES_FINDERS = (
-'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -156,12 +153,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'profile-detail'
 LOGOUT_REDIRECT_URL = 'user-login'
 
-# REST_FRAMEWORK = {
-#      'DEFAULT_RENDERER_CLASSES': (
-#          'rest_framework.renderers.JSONRenderer',
-#      )
-#  }
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 

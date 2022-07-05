@@ -17,7 +17,7 @@ def index(request):
 
 def query(request):
     """
-    Search view. Staff users can query all profiles using set of filters.
+    Search view. Staff users can query all profiles using a set of filters.
     """
 
     if request.user.is_staff:
@@ -59,7 +59,7 @@ def query(request):
             return render(request, 'search-result.html', context)
         return render(request, 'search.html', {'results': result_all, 'location_options': location_options})
     else:
-        return HttpResponse("<h3> You have no permission to access this site </h3>")
+        return HttpResponse('<h3 class="deny_access"> You have no permission to access this site </h3>')
 
 
 def create_profile(request):
