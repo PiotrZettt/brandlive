@@ -1,1 +1,6 @@
 .env
+*.pyc
+*~
+__pycach__
+db.sglite3
+.DS_Store
