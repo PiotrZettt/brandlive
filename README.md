@@ -22,7 +22,7 @@ Change directory to the brandlive Django app:
 
 ```cd brandlive```  
 
-Install all requirements by:
+Install all requirements by:  
 ```pip install -r requirements.txt```
 
 Before you create a database and run the server you will need to create a secret key by exporting an environmental variable. It will be read and used by Django's settings.py  
