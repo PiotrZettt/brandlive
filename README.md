@@ -1,7 +1,6 @@
 # brandlive
 Brandlive is a simple user profile platform where people can register their interst of working for a marketing agency.
 
-You will nedd an admin account: python manage.py createsuperuser
 
 # How to run:
 To run this app you will need python3.10 installed on your system.  
