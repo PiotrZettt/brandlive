@@ -40,8 +40,8 @@ We can create a database now:
 You will also need an admin account. Use command:  
 
 ```python manage.py createsuperuser```  
-
 and follow the prompts.  
+
 Everything's ready now. Run the app by:  
 
 ```python manage.py runserver```
