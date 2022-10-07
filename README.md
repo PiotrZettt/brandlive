@@ -18,6 +18,9 @@ Create a virtual environment for the project:
 
 ```python3 -m venv <your_env_name>```  
 
+Activate your envirenment by:
+```source venv/bin/activate```
+
 Change directory to the brandlive Django app:  
 
 ```cd brandlive```  
@@ -25,9 +28,10 @@ Change directory to the brandlive Django app:
 Install all requirements by:  
 ```pip install -r requirements.txt```
 
-Before you create a database and run the server you will need to create a secret key by exporting an environmental variable. It will be read and used by Django's settings.py  
+Before you create a database and run the server you will need to create a secret key by declaring an environmental variable. It will be read and used by Django's settings.py  
 
 ```export SECRET_KEY="<Use_a_string_here>"```  
+You will have to do it each time you start a new Terminal/Comand Line session.
 
 We can create a database now:  
 
