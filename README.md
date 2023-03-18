@@ -48,5 +48,3 @@ Everything's ready now. Run the app by:
 
 The app should open in your browser on http://127.0.0.1:8000/
 
-
-Demo: https://brandlive.herokuapp.com
